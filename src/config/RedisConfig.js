@@ -1,9 +1,11 @@
 import redis from "redis";
+import { promisifyAll } from "bluebird";
+import config from "./index";
 
 const options = {
-  host: "127.0.0.1",
-  port: 15001,
-  password: "123456",
+  host: config.REDIS.host,
+  port: config.REDIS.port,
+  password: config.REDIS.password,
   detect_buffers: true,
   retry_strategy: function(options) {
     if (options.error && options.error.code === "ECONNREFUSED") {
@@ -25,7 +27,12 @@ const options = {
   }
 };
 
-const client = redis.createClient(options);
+// const client = redis.createClient(options);
+const client = promisifyAll(redis.createClient(options));
+
+client.on("error", err => {
+  console.log("redis client error:" + err);
+});
 
 const setValue = (key, value) => {
   if (typeof value === "undefined" || value === null || value === "") {
@@ -40,14 +47,25 @@ const setValue = (key, value) => {
   }
 };
 
-const { promisify } = require("util");
-const getAsync = promisify(client.get).bind(client);
+// const { promisify } = require("util");
+// const getAsync = promisify(client.get).bind(client);
 const getValue = key => {
-  return getAsync(key);
+  return client.getAsync(key);
 };
 
 const getHValue = key => {
-  return promisify(client.hgetall).bind(client)(key);
+  // return promisify(client.hgetall).bind(client)(key);
+  return client.hgetallAsync(key);
 };
 
-export { client, setValue, getValue, getHValue };
+const delValue = key => {
+  client.del(key, (err, res) => {
+    if (res === 1) {
+      console.log("delete successfully");
+    } else {
+      console.log("delete redis key error:" + err);
+    }
+  });
+};
+
+export { client, setValue, getValue, getHValue, delValue };
