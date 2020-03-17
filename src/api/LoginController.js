@@ -5,6 +5,7 @@ class LoginController{
   constructor(){}
   async forget(ctx){
     const {body} = ctx.request
+    console.log('fdsafdas')
     try{
       let result = await send({
         code:'1324',
@@ -17,7 +18,7 @@ class LoginController{
         data:result,
         msg:'邮件发送成功'
       }
-    } catch(e){}
+    } catch(e){console.log('报错啦--',e)}
   }
 
 }
