@@ -1,8 +1,8 @@
 const DB_URL = "mongodb://test:123456@localhost:27017/testdb";
 const REDIS = {
-  host: "127.0.0.1",
-  port: 15001,
-  password: "123456"
+  host: "172.16.10.28",
+  port: 6000,
+  // password: "123456"
 };
-
-export default { DB_URL, REDIS };
+const JWT_SECRET = 'fdsabgdfsgfsb^887r3dsfnsgkdnjkfhdkjafhdjksanfejghq'
+export default { DB_URL, REDIS, JWT_SECRET };

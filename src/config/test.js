@@ -1,5 +1,5 @@
 //业务中需要删除掉
-//执行命令  npx babel-node src/model/demo.js
+//执行命令  npx babel-node src/config/test.js 
 
 import { setValue, getValue, getHValue, delValue } from "./RedisConfig";
 

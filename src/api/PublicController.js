@@ -1,5 +1,5 @@
 import svgCaptcha from "svg-captcha";
-import { setValue, getValue } from "../RedisConfig";
+import { setValue, getValue } from "../config/RedisConfig";
 
 class PublicController {
   constructor() {}
