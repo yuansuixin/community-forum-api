@@ -5,7 +5,7 @@ const router = new Router()
 
 router.prefix('/login')
 router.post('/forget', loginController.forget)
-router.post("/login");
+router.post("/login", loginController.login);
 
 export default router
 

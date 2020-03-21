@@ -17,7 +17,7 @@ const app = new koa()
 const isDevMode = process.env.NODE_ENV === 'production' ? false : true
 
 //定义公共路径，不需要jwt鉴权
-const jwt = JWT({secret:config.JWT_SECRET}).unless([/^\/public/,/\/login/])
+const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /\/login/] });
 
 /**
  * 使用koa-compose 集成中间件

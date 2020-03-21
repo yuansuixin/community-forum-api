@@ -41,6 +41,7 @@ class LoginController {
       // 验证用户账号密码是否正确
       let checkUserPasswd = false;
       let user = await User.findOne({ username: body.username });
+      console.log('user---',user)
       if (user.password === body.password) {
         checkUserPasswd = true;
       }
