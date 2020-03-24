@@ -113,7 +113,6 @@ temp/
 .DS_*
 **/*.backup.*
 **/*.back.*
-.vscode
 
 node_modules
 
