@@ -12,31 +12,34 @@ import compress from 'koa-compress'
 import config from './config/index'
 import errorHandle from './common/ErrorHandle'
 
+// eslint-disable-next-line new-cap
 const app = new koa()
 
-const isDevMode = process.env.NODE_ENV === 'production' ? false : true
+const isDevMode = process.env.NODE_ENV !== 'production'
 
-//定义公共路径，不需要jwt鉴权
-const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /\/login/] });
+// 定义公共路径，不需要jwt鉴权
+const jwt = JWT({ secret: config.JWT_SECRET }).unless({
+  path: [/^\/public/, /\/login/]
+})
 
 /**
  * 使用koa-compose 集成中间件
  */
 const middleware = compose([
   koaBody(),
-  statics(path.join(__dirname, "../public")),
+  statics(path.join(__dirname, '../public')),
   cors(),
-  jsonutil({ pretty: false, param: "pretty" }),
+  jsonutil({ pretty: false, param: 'pretty' }),
   helmet(),
   errorHandle,
   jwt
-]);
+])
 
 if (!isDevMode) {
   app.use(compress())
 }
 
-let port = !isDevMode ?12005:3000
+const port = !isDevMode ? 12005 : 3000
 
 app.use(middleware)
 app.use(router())
