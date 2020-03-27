@@ -1,4 +1,5 @@
 import Post from '../model/Post'
+import Links from '@/model/Links'
 
 class ContentController {
   async getPostList(ctx) {
@@ -36,20 +37,41 @@ class ContentController {
     if (typeof body.isTop !== 'undefined') {
       options.isTop = body.isTop
     }
-    if (typeof body.status !== 'undefined') {
-      options.status = body.status
+    if (typeof body.status !== 'undefined' && body.status !== '') {
+      options.isEnd = body.status
     }
-    if (typeof body.isEnd !== 'undefined') {
-      options.isEnd = body.isEnd
-    }
-    if (typeof body.tags !== 'undefined' && body.tags !== '') {
-      options.tags = { $elemMatch: { name: body.tags } }
+    if (typeof body.tag !== 'undefined' && body.tag !== '') {
+      options.tags = { $elemMatch: { name: body.tag } }
     }
     const result = await Post.getList(options, sort, page, limit)
     ctx.body = {
       code: 200,
       data: result,
       msg: '获取文章列表成功'
+    }
+  }
+
+  async getLinks(ctx) {
+    const result = await Links.find({ type: 'links' })
+    ctx.body = {
+      code: 200,
+      data: result
+    }
+  }
+
+  async getTips(ctx) {
+    const result = await Links.find({ type: 'tips' })
+    ctx.body = {
+      code: 200,
+      data: result
+    }
+  }
+
+  async getTopWeek(ctx) {
+    const result = await Post.getTopWeek()
+    ctx.body = {
+      code: 200,
+      data: result
     }
   }
 }

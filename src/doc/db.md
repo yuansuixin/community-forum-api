@@ -15,7 +15,7 @@
 | updated  | date   | now()      | 否   | 更新时间                                                 |
 | favs     | number | 100        | 否   | 用户积分                                                 |
 | gender   | string | 0-男，1-女 | 否   | 用户性别                                                 |
-| roles    | string | user       | 否   | 角色，user-普通用户 admin-管理员 super-admin超级管理员   |
+| roles    | Array  | user       | 否   | 角色，user-普通用户 admin-管理员 super-admin超级管理员   |
 | pic      | string |            | 否   | 用户头像                                                 |
 | mobile   | string |            | 否   | 手机号码                                                 |
 | status   | string | 0          | 否   | 是否被禁用 0-正常 1-禁言 2-账号禁用                      |
@@ -47,13 +47,14 @@
 
 * links 友情链接
 
-| 字段    | 类型   | 默认    | 说明     |
-| ------- | ------ | ------- | -------- |
-| title   | string |         | 标题     |
-| link    | string |         | 链接     |
-| created | date   | now（） | 创建时间 |
-| isTop   | string | 0       | 是否置顶 |
-| sort    | string | 0       | 排序编号 |
+| 字段    | 类型   | 默认    | 说明                      |
+| ------- | ------ | ------- | ------------------------- |
+| title   | string |         | 标题                      |
+| link    | string |         | 链接                      |
+| type    | string |         | links-链接  tips-温馨提醒 |
+| created | date   | now（） | 创建时间                  |
+| isTop   | string | 0       | 是否置顶                  |
+| sort    | string | 0       | 排序编号                  |
 
 
 * sign_record 签到记录

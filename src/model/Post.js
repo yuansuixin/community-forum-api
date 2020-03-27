@@ -1,5 +1,5 @@
 import mongoose from '../config/DBHepler'
-import moment from 'moment'
+import moment from 'dayjs'
 
 const Schema = mongoose.Schema
 
@@ -21,6 +21,7 @@ const PostSchema = new Schema({
 
 PostSchema.pre('save', function(next) {
   this.created = moment().format('YYYY-MM-DD HH:mm:ss')
+  next()
 })
 
 PostSchema.statics = {
@@ -38,8 +39,23 @@ PostSchema.statics = {
       .limit(limit)
       .populate({
         path: 'uid',
-        select: 'name'
+        select: 'name isVip pic'
       }) // 联合查询
+  },
+  getTopWeek: function() {
+    return this.find(
+      {
+        created: {
+          $gte: moment().subtract(7, 'days')
+        }
+      },
+      {
+        answer: 1,
+        title: 1
+      }
+    )
+      .sort({ answer: -1 })
+      .limit(15)
   }
 }
 const PostModel = mongoose.model('post', PostSchema)

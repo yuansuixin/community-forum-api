@@ -5,7 +5,8 @@
 | 接口名          | 请求方式 | 说明               |
 | --------------- | -------- | ------------------ |
 | `/public/list`  | get      | 文章列表接口       |
-| `/public/links` | get      | 友情链接和温馨提醒 |
+| `/public/links` | get      | 友情链接 |
+| `/public/tips` | get      | 温馨提醒 |
 | `/public/topWeek` | get      | 本周热议 |
 
 

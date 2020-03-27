@@ -1,5 +1,5 @@
 import send from '../config/MailConfig'
-import moment from 'moment'
+import moment from 'dayjs'
 import bcrypt from 'bcrypt'
 import jsonwebtoken from 'jsonwebtoken'
 import config from '../config'
