@@ -101,6 +101,7 @@ class LoginController {
           created: moment().format('YYYY-MM-DD HH:mm:ss')
         })
         const result = await user.save()
+        console.log('reg -> result', result, user)
         ctx.body = {
           code: 200,
           data: result,

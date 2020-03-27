@@ -43,7 +43,7 @@
 | status  | string   | 0     | 0-打开回复 1-关闭回复                                                      |
 | isTop   | string   | 0     | 0-未置顶 1-已置顶                                                          |
 | sort    | string   | 0     | 置顶排序                                                                   |
-| tags    | string   |       | 文章的标签 精华 加精 etc                                                   |
+| tags    | array    |       | 文章的标签 精华 加精 etc                                                   |
 
 * links 友情链接
 
