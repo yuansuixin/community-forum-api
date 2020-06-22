@@ -1,7 +1,7 @@
-const DB_URL = 'mongodb://test:123456@localhost:27017/imooc'
+const DB_URL = 'mongodb://test:123456@127.0.0.1:27017/testdb'
 const REDIS = {
-  host: '172.16.10.28',
-  port: 6000
+  host: '127.0.0.1',
+  port: 6379
   // password: "123456"
 }
 const JWT_SECRET = 'fdsabgdfsgfsb^887r3dsfnsgkdnjkfhdkjafhdjksanfejghq'

@@ -30,10 +30,19 @@ const webpackconfig = {
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') ? "'production'" : "'development'"
+        NODE_ENV:
+          process.env.NODE_ENV === 'production' ||
+          process.env.NODE_ENV === 'prod'
+            ? "'production'"
+            : "'development'"
       }
     })
   ],
+  resolve: {
+    alias: {
+      '@': path.join(__dirname, '../src')
+    }
+  },
   node: {
     console: true,
     global: true,

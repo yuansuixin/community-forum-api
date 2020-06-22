@@ -4,28 +4,29 @@ import Links from '@/model/Links'
 class ContentController {
   async getPostList(ctx) {
     const body = ctx.query
+    console.log('list data:', body)
 
     // 测试数据
-    const post = new Post({
-      title: 'test title',
-      content: 'test content',
-      catalog: 'ask',
-      fav: 20,
-      isEnd: '0',
-      reads: '0',
-      answer: '0',
-      status: '0',
-      isTop: '0',
-      sort: '0',
-      tags: [
-        {
-          name: '精华',
-          class: ''
-        }
-      ]
-    })
-    const tmp = await post.save()
-    console.log('ContentController -> getPostList -> tmp', tmp)
+    // const post = new Post({
+    //   title: 'test title',
+    //   content: 'test content',
+    //   catalog: 'ask',
+    //   fav: 20,
+    //   isEnd: '0',
+    //   reads: '0',
+    //   answer: '0',
+    //   status: '0',
+    //   isTop: '0',
+    //   sort: '0',
+    //   tags: [
+    //     {
+    //       name: '精华',
+    //       class: ''
+    //     }
+    //   ]
+    // })
+    // const tmp = await post.save()
+    // console.log('ContentController -> getPostList -> tmp', tmp)
 
     const sort = body.sort ? body.sort : 'created'
     const page = body.page ? parseInt(body.page) : 0
