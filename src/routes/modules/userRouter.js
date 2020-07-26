@@ -6,6 +6,7 @@ const router = new Router()
 router.prefix('/user')
 
 router.get('/fav', UserController.userSign)
+
 //更新用户的基本信息
 router.get('/basic', UserController.updateUserInfo)
 
