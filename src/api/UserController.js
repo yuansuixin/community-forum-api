@@ -2,7 +2,11 @@ import SignRecord from '../model/SignRecord'
 import { getJWTPayload } from '../common/Utils'
 import User from '../model/User'
 import moment from 'dayjs'
-
+import send from '@/config/MailConfig'
+import uuid from 'uuid/v4'
+import jwt from 'jsonwebtoken'
+import { setValue, getValue } from '@/config/RedisConfig'
+import bcrypt from 'bcrypt'
 class UserController {
   async userSign(ctx) {
     // 取用户的id
@@ -106,6 +110,108 @@ class UserController {
       lastSign: newRecord.created
     }
   }
+
+  //更新用户基本信息
+  async updateUserInfo(ctx) {
+    const { body } = ctx.request
+    const obj = await getJWTPayload(ctx.header.authorization)
+    //判断用户是否修改了邮箱
+    const user = await User.findOne({ _id: obj._id })
+    let msg = ''
+    if (body.username && body.username !== user.username) {
+      //用户修改了邮箱
+      //发送reset邮件
+      // 判断用户的新邮箱是否已经有人注册
+      const tmpUser = await User.findOne({ username: body.username })
+      if (tmpUser && tmpUser.password) {
+        ctx.body = {
+          code: 501,
+          msg: '邮箱已经注册'
+        }
+        return
+      }
+
+      const key = uuid()
+      setValue(
+        key,
+        jwt.sign({ _id: obj._id }, config.JWT_SECRET, { expireIn: '30m' })
+      )
+      const result = await send({
+        type: 'email',
+        data: {
+          key: key,
+          username: body.username
+        },
+        code: '',
+        expire: moment().add(30, 'minutes').format('YYYY-MM-DD HH:mm:ss'),
+        email: body.username,
+        user: user.name
+      })
+      msg = '更新基本资料成功，账号修改需要邮件确认，清查收邮件'
+     
+    }
+    const arr = ['username', 'mobile', 'password']
+    arr.map((item) => {
+      delete body[item]
+    })
+    const result = await User.updateOne({ _id: obj._id }, body)
+
+    if (result.n === 1 && result.ok === 1) {
+      ctx.body = {
+        code: 200,
+        msg: msg ===''?'更新成功':msg
+      }
+    } else {
+      ctx.body = {
+        code: 500,
+        msg: '更新失败'
+      }
+    }
+  }
+
+  //更新用户名
+  async updateUsername(ctx) {
+    const body = ctx.query
+    if (body.key) {
+      const token = await getValue(body.key)
+      const obj = getJWTPayload('Bearer ' + token)
+      await User.updateOne(
+        { _id: obj._id },
+        {
+          username: body.username
+        }
+      )
+      ctx.body = {
+        code: 200,
+        msg: '更新用户名成功'
+      }
+    }
+  }
+
+  //修改密码接口
+  async changePasswd(ctx) {
+    const { body } = ctx.request
+    const obj = await getJWTPayload(ctx.header.authorization)
+    const user = await User.findOne({ _id: obj._id })
+    if (await bcrypt.compare(body.oldpwd, user.password)) {
+      const newpasswd = await bcrypt.hash(body.newpasswd, 5)
+      const result = await User.updateOne(
+
+      {_id:obj._id},{$set:{password:newpasswd}}
+      )
+
+      ctx.body = {
+        code: 200,
+        msg:"更新密码成功"
+      }
+    } else {
+      ctx.body = {
+        code: 500,
+        msg:'更新密码错误，请检查'
+      }
+    }
+  }
+
 }
 
 export default new UserController()
