@@ -30,10 +30,10 @@ const middleware = compose([
     multipart: true,
     formidable: {
       keepExtensions: true,
-      maxFieldsSize:5*1024*1024
+      maxFieldsSize: 5 * 1024 * 1024
     },
-    onError: err => {
-      console.log('kiabidy:err',err)
+    onError: (err) => {
+      console.log('kiabidy:err', err)
     }
   }),
   statics(path.join(__dirname, '../public')),

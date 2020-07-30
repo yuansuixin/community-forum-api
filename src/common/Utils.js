@@ -18,21 +18,20 @@ const checkCode = async (key, value) => {
   return false
 }
 
-const getStats = path => {
-  return new Promise(resolve => {
-    fs.stat(path,(err,stats)=> err?resolve(false):resolve(stats))
-   
+const getStats = (path) => {
+  return new Promise((resolve) => {
+    fs.stat(path, (err, stats) => (err ? resolve(false) : resolve(stats)))
   })
 }
 
-cosnt mkdir = dir => {
-  return new Promise(resolve => {
-    fs.mkdir(dir,err=>err?resolve(false):resolve(true))
+const mkdir = (dir) => {
+  return new Promise((resolve) => {
+    fs.mkdir(dir, (err) => (err ? resolve(false) : resolve(true)))
   })
 }
 
 // 循环比那里，递归判断，如果上级目录不存在，则产生上级目录
-const dirExists = async dir => {
+const dirExists = async (dir) => {
   const isExists = await getStats(dir)
   //如果该路径存在切不是文件，返回true
   if (isExists && isExists.isDirectory()) {
@@ -48,10 +47,8 @@ const dirExists = async dir => {
     const result = await mkdir(dir)
     return result
   } else {
-    return false 
+    return false
   }
-
 }
 
-
-export { checkCode, getJWTPayload,dirExists }
+export { checkCode, getJWTPayload, dirExists }

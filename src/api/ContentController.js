@@ -1,9 +1,9 @@
 import Post from '../model/Post'
-import Links from '@/model/Links'
+import Links from '../model/Links'
 import fs, { read } from 'fs'
 import uuid from 'uuid/v4'
 import moment from 'dayjs'
-import config from '@/config'
+import config from '../config'
 
 //方法一
 // import {dirExists} from '@/common/Utils'
@@ -84,13 +84,12 @@ class ContentController {
     }
   }
 
-//上传图片接口
+  //上传图片接口
   async uploadImg(ctx) {
     const file = ctx.request.files.file
     // 图片名称、图片格式、存储的位置，返回前台一个可以读取的路径
     const ext = file.name.split('.').pop()
     const dir = `${config.uploadPath}/${moment().format('YYYYMMDD')}`
-
 
     //判断路径是否存在，不存在则创建
     await mkdir(dir)
@@ -104,33 +103,30 @@ class ContentController {
     //方法一
     // read.pipe(upStream)
 
-//     const stat = fs.statSync(file.path)
-//     console.log('文件的长度==',stat.size)
-// //方法二，大一些的文件可以使用,并且可以获取到上传的进度
-//     let totalLength = 0
-//     reader.on('data', chunk => {
-//       if (upStream.write(chunk) === false) {
-//         reader.pause()
-//       }
-//     })
+    //     const stat = fs.statSync(file.path)
+    //     console.log('文件的长度==',stat.size)
+    // //方法二，大一些的文件可以使用,并且可以获取到上传的进度
+    //     let totalLength = 0
+    //     reader.on('data', chunk => {
+    //       if (upStream.write(chunk) === false) {
+    //         reader.pause()
+    //       }
+    //     })
 
-//     reader.on('diain', () => {
-//       reader.resume()
-//     })
+    //     reader.on('diain', () => {
+    //       reader.resume()
+    //     })
 
-//     reader.on('end', () => {
-//       upStream.end()
-//     })
-    
-    
+    //     reader.on('end', () => {
+    //       upStream.end()
+    //     })
 
     ctx.body = {
       code: 200,
       msg: '图片上传成功',
-      data:filePath
+      data: filePath
     }
   }
-
 }
 
 export default new ContentController()

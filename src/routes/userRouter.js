@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import UserController from '@/api/UserController'
+import UserController from '../api/UserController'
 
 const router = new Router()
 
@@ -11,6 +11,6 @@ router.get('/fav', UserController.userSign)
 router.get('/basic', UserController.updateUserInfo)
 
 //修改密码
-router.post('/change-password',UserController.changePasswd)
+router.post('/change-password', UserController.changePasswd)
 
 export default router

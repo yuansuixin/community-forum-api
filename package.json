@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^3.0.0",
+    "babel-plugin-transform-require-context": "^0.1.1",
     "bcrypt": "^4.0.1",
     "bluebird": "^3.7.2",
     "dayjs": "^1.8.23",
@@ -37,9 +38,10 @@
     "nodemailer": "^6.4.4",
     "npm-run-all": "^4.1.5",
     "redis": "^3.0.2",
+    "require-context": "^1.1.0",
     "saslprep": "^1.0.3",
     "svg-captcha": "^1.4.0",
-    "uuid": "^8.2.0"
+    "uuid": "^7.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
