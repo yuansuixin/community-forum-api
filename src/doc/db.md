@@ -60,3 +60,37 @@
 | uid     | string |         | 用户 id  |
 | created | date   | now（） | 创建时间 |
 | fav     | string |         | 积分数量 |
+
+- comments 评论信息表
+
+| 字段    | 类型     | 默认  | 说明               |
+| ------- | -------- | ----- | ------------------ |
+| cid     | ObjectID |       |                    |
+| tid     | string   |       | 文章id             |
+| cuid    | string   |       | 评论用户id         |
+| content | string   |       | 回复内容           |
+| created | date     | now() | 创建时间           |
+| hands   | number   | 0     | 点赞数量           |
+| status  | number   | 1     | 是或否显示0-否1-是 |
+| isRead  | number   | 0     | 是否已读           |
+| isBest  | number   | 0     | 是否采纳           |
+
+
+- comments_hands 点赞记录
+ 
+ | 字段    | 类型     | 默认  | 说明       |
+ | ------- | -------- | ----- | ---------- |
+ | hid     | ObjectID |       |            |
+ | cid     | string   |       | 评论id     |
+ | uid     | string   |       | 点赞用户id |
+ | created | date     | now() | 创建时间   |
+
+
+ - user_collect 用户收藏记录
+ 
+ | 字段    | 类型   | 默认  | 说明     |
+ | ------- | ------ | ----- | -------- |
+ | tid     | string |       | 帖子id   |
+ | title   | string |       | 帖子标题 |
+ | uid     | string |       | 用户id   |
+ | created | date   | now() | 创建时间 |

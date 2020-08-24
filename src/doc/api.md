@@ -247,5 +247,45 @@ user 对象说明：
 }
 ```
 
+> 6. 文章详情
 
+**请求 URL：**
+
+- `/public/content/detail`
+
+**请求方式：**
+
+- GET
+
+**参数：**
+
+| 参数名 | 类型   | 说明   |
+| ------ | ------ | ------ |
+| tid    | string | 文章id |
+
+**返回示例：**
+
+```json
+{
+  "code"：200,
+  "data":{
+    "tid":1,
+    "catalog":"ask",
+    "title":"标题",
+    "created":"2020-02-02 00:00:00",
+    "content":"内容",
+    "user":{
+      "pic":"头像",
+      "name":"昵称",
+      "isVip":1
+    },
+    "isCollect":0,
+    "isEnd":0,
+    "status":0,
+    "answer":0,
+    "reads":0
+  },
+  "msg":"系统消息"
+}
+```
 
