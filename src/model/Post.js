@@ -10,16 +10,16 @@ const PostSchema = new Schema({
   created: { type: Date },
   catalog: { type: String },
   fav: { type: String },
-  isEnd: { type: String },
-  reads: { type: Number },
-  answer: { type: Number },
-  status: { type: String },
-  isTop: { type: String },
-  sort: { type: String },
+  isEnd: { type: Boolean, default: 0 },
+  reads: { type: Number, default: 0 },
+  answer: { type: Number, default: 0 },
+  status: { type: String, default: '0' },
+  isTop: { type: String, default: '0' },
+  sort: { type: String, default: 100 },
   tags: { type: String }
 })
 
-PostSchema.pre('save', function(next) {
+PostSchema.pre('save', function (next) {
   this.created = moment().format('YYYY-MM-DD HH:mm:ss')
   next()
 })
@@ -32,7 +32,7 @@ PostSchema.statics = {
    * @param {Number} page
    * @param {Number} limit
    */
-  getList: function(options, sort, page, limit) {
+  getList: function (options, sort, page, limit) {
     return this.find(options)
       .sort({ [sort]: -1 })
       .skip(page * limit)
@@ -42,7 +42,7 @@ PostSchema.statics = {
         select: 'name isVip pic'
       }) // 联合查询
   },
-  getTopWeek: function() {
+  getTopWeek: function () {
     return this.find(
       {
         created: {

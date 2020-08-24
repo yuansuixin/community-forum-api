@@ -213,3 +213,39 @@ user 对象说明：
 | favs   | string | 用户获得的积分 |
 | count  | string | 连续签到天数   |
 | msg    | string | 系统消息       |
+
+
+> 5. 发表新帖
+
+**请求 URL：**
+
+- `/content/add`
+
+**请求方式：**
+
+- POST
+
+**参数：**
+
+| 参数名  | 类型   | 说明    |
+| ------- | ------ | ------- |
+| title   | string | 标题    |
+| content | string | 内容    |
+| catelog | string | 分类    |
+| fav     | string | 积分    |
+| sid     | string | 用户sid |
+| code    | string | 验证码  |
+
+
+**返回示例：**
+
+```json
+{
+  "code"：200,
+  "data":{},
+  "msg":""
+}
+```
+
+
+

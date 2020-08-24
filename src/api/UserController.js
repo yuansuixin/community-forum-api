@@ -2,10 +2,10 @@ import SignRecord from '../model/SignRecord'
 import { getJWTPayload } from '../common/Utils'
 import User from '../model/User'
 import moment from 'dayjs'
-import send from '@/config/MailConfig'
+import send from '../config/MailConfig'
 import uuid from 'uuid/v4'
 import jwt from 'jsonwebtoken'
-import { setValue, getValue } from '@/config/RedisConfig'
+import { setValue, getValue } from '../config/RedisConfig'
 import bcrypt from 'bcrypt'
 class UserController {
   async userSign(ctx) {
@@ -148,7 +148,6 @@ class UserController {
         user: user.name
       })
       msg = '更新基本资料成功，账号修改需要邮件确认，清查收邮件'
-     
     }
     const arr = ['username', 'mobile', 'password']
     arr.map((item) => {
@@ -159,7 +158,7 @@ class UserController {
     if (result.n === 1 && result.ok === 1) {
       ctx.body = {
         code: 200,
-        msg: msg ===''?'更新成功':msg
+        msg: msg === '' ? '更新成功' : msg
       }
     } else {
       ctx.body = {
@@ -196,22 +195,21 @@ class UserController {
     if (await bcrypt.compare(body.oldpwd, user.password)) {
       const newpasswd = await bcrypt.hash(body.newpasswd, 5)
       const result = await User.updateOne(
-
-      {_id:obj._id},{$set:{password:newpasswd}}
+        { _id: obj._id },
+        { $set: { password: newpasswd } }
       )
 
       ctx.body = {
         code: 200,
-        msg:"更新密码成功"
+        msg: '更新密码成功'
       }
     } else {
       ctx.body = {
         code: 500,
-        msg:'更新密码错误，请检查'
+        msg: '更新密码错误，请检查'
       }
     }
   }
-
 }
 
 export default new UserController()

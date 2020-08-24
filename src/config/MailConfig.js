@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import config from '@/config'
+import config from '../config'
 import qs from 'qs'
 // const nodemailer = require("nodemailer");
 
@@ -27,8 +27,8 @@ async function send(sendInfo) {
   // }
 
   const baseUrl = config.baseUrl
-  const route = sendInfo.type === 'email'?'/confirm':'/reset'
-  const url = `${baseUrl}/#/${route}?`+ qs.stringify(sendInfo.data)
+  const route = sendInfo.type === 'email' ? '/confirm' : '/reset'
+  const url = `${baseUrl}/#/${route}?` + qs.stringify(sendInfo.data)
 
   // send mail with defined transport object
   const info = await transporter.sendMail({

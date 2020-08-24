@@ -5,7 +5,7 @@ import jsonwebtoken from 'jsonwebtoken'
 import config from '../config'
 import { checkCode } from '../common/Utils'
 import User from '../model/User'
-import SignRecord from '@/model/SignRecord'
+import SignRecord from '../model/SignRecord'
 
 class LoginController {
   async forget(ctx) {
@@ -53,11 +53,18 @@ class LoginController {
         arr.map((item) => {
           delete userObj[item]
         })
-        const token = jsonwebtoken.sign({ _id: 'brian' }, config.JWT_SECRET, {
-          expiresIn: '1d'
-        })
+        console.log('userobj===', userObj)
+        const token = jsonwebtoken.sign(
+          { _id: userObj['_id'] },
+          config.JWT_SECRET,
+          {
+            expiresIn: '1d'
+          }
+        )
         // 加入isSign属性
+        console.log('id===', userObj._id)
         const signRecord = await SignRecord.findByUid(userObj._id)
+        console.log('lalalal', signRecord)
         if (signRecord !== null) {
           if (
             moment(signRecord.created).format('YYYY-MM-DD') ===

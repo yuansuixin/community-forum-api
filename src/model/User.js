@@ -21,17 +21,17 @@ const UserSchema = new Schema({
   count: { type: Number, default: 0 }
 })
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
   this.created = moment().format('YYYY-MM-DD HH:mm:ss')
   next()
 })
 
-UserSchema.pre('update', function(next) {
+UserSchema.pre('update', function (next) {
   this.updated = moment().format('YYYY-MM-DD HH:mm:ss')
   next()
 })
 
-UserSchema.post('save', function(error, doc, next) {
+UserSchema.post('save', function (error, doc, next) {
   if (error.name === 'MongoError' && error.code === 11000) {
     next(new Error('Error:Mongoose has a duplicate key.'))
   } else {
@@ -39,8 +39,8 @@ UserSchema.post('save', function(error, doc, next) {
   }
 })
 
-UserSchema.static = {
-  findByID: function(id) {
+UserSchema.statics = {
+  findByID: function (id) {
     return this.findOne(
       { _id: id },
       {
