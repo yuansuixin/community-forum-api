@@ -1,6 +1,7 @@
 import SignRecord from '../model/SignRecord'
 import { getJWTPayload } from '../common/Utils'
 import User from '../model/User'
+import UserCollect from '../model/UserCollect'
 import moment from 'dayjs'
 import send from '../config/MailConfig'
 import uuid from 'uuid/v4'
@@ -208,6 +209,57 @@ class UserController {
         code: 500,
         msg: '更新密码错误，请检查'
       }
+    }
+  }
+
+  //设置收藏
+  async setCollect(ctx) {
+    const params = ctx.query
+    const obj = await getJWTPayload(ctx.header.authorization)
+    if (parseInt(params.isFav)) {
+      // 说明用户已经收藏了帖子
+      await UserCollect.deleteOne({ uid: obj._id, tid: params.tid })
+      ctx.body = {
+        code: 200,
+        msg: '取消收藏成功'
+      }
+    } else {
+      const newCollect = new UserCollect({
+        uid: obj._id,
+        tid: params.tid,
+        title: params.title
+      })
+      const result = await newCollect.save()
+      if (result.uid) {
+        ctx.body = {
+          code: 200,
+          data: result,
+          msg: '收藏成功'
+        }
+      }
+    }
+  }
+
+  async getBasicInfo(ctx) {
+    const params = ctx.query
+    const uid = params.uid
+    let user = await User.findByID(uid)
+    //取得用户的签到记录，有没有大于今日的
+    user = user.toJSON()
+    const date = moment().format('YYYY-MM-DD')
+    const result = await SignRecord.findOne({
+      uid: uid,
+      created: { $gte: date + ' 00:00:00' }
+    })
+    if (result && result.uid) {
+      user.isSign = true
+    } else {
+      user.isSign = false
+    }
+    ctx.body = {
+      code: 200,
+      data: user,
+      msg: '查询成功'
     }
   }
 }

@@ -56,6 +56,21 @@ PostSchema.statics = {
     )
       .sort({ answer: -1 })
       .limit(15)
+  },
+  findByTid(id) {
+    return this.findOne({ _id: id }).populate({
+      path: 'uid',
+      select: 'name pic isVip _id'
+    })
+  },
+  getListByUid(id, page, limit) {
+    return this.find({ uid: id })
+      .skip(page * limit)
+      .limit(limit)
+      .sort({ created: -1 })
+  },
+  countByUid(id) {
+    return this.find({ uid: id }).countDocuments()
   }
 }
 const PostModel = mongoose.model('post', PostSchema)

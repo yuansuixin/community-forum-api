@@ -51,4 +51,12 @@ const dirExists = async (dir) => {
   }
 }
 
-export { checkCode, getJWTPayload, dirExists }
+const rename = (obj, key, newKey) => {
+  if (Object.keys(obj).indexOf(key) !== -1) {
+    obj[newKey] = obj[key]
+    delete obj[key]
+  }
+  return obj
+}
+
+export { checkCode, getJWTPayload, dirExists, rename }

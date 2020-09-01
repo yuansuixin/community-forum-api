@@ -289,3 +289,46 @@ user 对象说明：
 }
 ```
 
+> 7. 评论列表
+
+**请求 URL：**
+
+- `/public/comments`
+
+**请求方式：**
+
+- GET
+
+**参数：**
+
+| 参数名 | 类型   | 说明   |
+| ------ | ------ | ------ |
+| tid    | string | 文章id |
+
+**返回示例：**
+
+```json
+{
+  "code"：200,
+  "data":{
+    "uid":1,
+    "title":"标题",
+    "created":"2020-02-02 00:00:00",
+    "content":"内容",
+    "user":{
+      "pic":"头像",
+      "name":"昵称",
+      "isVip":1
+    },
+    "isBest":0,
+    "isRead":0,
+    "hands":9,
+    "status":0,
+    "answer":0,
+    "reads":0
+  },
+  "total":200,
+  "handed":1,//1-已点赞  0-未点赞
+  "msg":"系统消息"
+}
+```
