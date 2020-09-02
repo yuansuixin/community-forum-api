@@ -25,4 +25,11 @@ router.get('/content/detail', contentController.getPostDetail)
 router.get('/comments', commentsController.getComments)
 //获取用户的基本信息
 router.get('/info', userController.getBasicInfo)
+
+//获取用户最近的发帖记录
+router.get('/latest-post', contentController.getPostPublic)
+
+//获取用户最近的评论记录
+router.get('latest-comment', commentsController.getCommentPublic)
+
 export default router

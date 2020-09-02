@@ -244,7 +244,7 @@ class UserController {
     const params = ctx.query
     const uid = params.uid
     let user = await User.findByID(uid)
-    //取得用户的签到记录，有没有大于今日的
+    // 取得用户的签到记录，有没有大于今日的
     user = user.toJSON()
     const date = moment().format('YYYY-MM-DD')
     const result = await SignRecord.findOne({

@@ -55,6 +55,27 @@ class CommentsController {
     }
   }
 
+  async getCommentPublic(ctx) {
+    const params = ctx.query
+    const result = await Comments.getCommentPublic(
+      params.uid,
+      params.page,
+      parseInt(params.limit)
+    )
+    if (result.length > 0) {
+      ctx.body = {
+        code: 200,
+        data: result,
+        msg: '查询最近的评论记录成功'
+      }
+    } else {
+      ctx.body = {
+        code: 500,
+        msg: '查询评论记录失败'
+      }
+    }
+  }
+
   async addComment(ctx) {
     const check = await canReply(ctx)
     if (!check) {
@@ -80,7 +101,7 @@ class CommentsController {
     const obj = await getJWTPayload(ctx.header.authorization)
     newComment.cuid = obj._id
     const comment = await newComment.save()
-    //评论计数
+    // 评论计数
     const updatePostresult = await Post.updateOne(
       { _id: body.tid },
       { $inc: { answer: 1 } }

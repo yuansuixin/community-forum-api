@@ -52,6 +52,12 @@ CommentsSchema.statics = {
   },
   queryCount(id) {
     return this.find({ tid: id }).countDocuments()
+  },
+  getCommentsPublic(id, page, limit) {
+    return this.find({ cuid: id })
+      .skip(page * limit)
+      .limit(limit)
+      .sort({ created: -1 })
   }
 }
 
