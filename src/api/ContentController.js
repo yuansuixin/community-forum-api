@@ -1,10 +1,11 @@
 import Post from '../model/Post'
 import Links from '../model/Links'
-import fs, { read } from 'fs'
+// import fs, { read } from 'fs'
+import fs from 'fs'
 import uuid from 'uuid/v4'
 import moment from 'dayjs'
 import config from '../config'
-import userCollect from '../model/UserCollect'
+// import userCollect from '../model/UserCollect'
 
 // 方法一
 // import {dirExists} from '@/common/Utils'
