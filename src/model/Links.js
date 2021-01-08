@@ -1,4 +1,4 @@
-import mongoose from '../config/DBHepler'
+import mongoose from '../config/DBHelper'
 import moment from 'dayjs'
 
 const Schema = mongoose.Schema
@@ -12,7 +12,7 @@ const LinksSchema = new Schema({
   sort: { type: String, default: '' }
 })
 
-LinksSchema.pre('save', function(next) {
+LinksSchema.pre('save', function (next) {
   this.created = moment().format('YYYY-MM-DD HH:mm:ss')
   next()
 })

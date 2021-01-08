@@ -1,4 +1,4 @@
-import mongoose from '../config/DBHelpler'
+import mongoose from '../config/DBHelper.js'
 import moment from 'dayjs'
 import CommentsHands from './CommentsHands'
 
